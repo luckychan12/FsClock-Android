@@ -132,21 +132,11 @@ public class BaseSettingsActivity extends AppCompatActivity {
 
         // hide dream settings button if not supported
         UiModeManager uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2
-                || uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
-            findViewById(R.id.buttonDreamSettings).setVisibility(View.GONE);
-        }
 
-        // show screensaver note on FireTV
-        if(getPackageManager().hasSystemFeature("amazon.hardware.fire_tv")) {
-            findViewById(R.id.textViewFireTvNotes).setVisibility(View.VISIBLE);
-            findViewById(R.id.buttonDreamSettings).setVisibility(View.GONE);
-        }
 
         // find views
         mLinearLayoutPurchaseContainer = findViewById(R.id.linearLayoutInAppPurchase);
         mLinearLayoutSettingsContainer = findViewById(R.id.linearLayoutSettings);
-        mButtonUnlockSettings = findViewById(R.id.buttonUnlockSettings);
         mCheckBoxKeepScreenOn = findViewById(R.id.checkBoxKeepScreenOn);
         mCheckBoxShowBatteryInfo = findViewById(R.id.checkBoxShowBatteryInfo);
         mCheckBoxShowBatteryInfoWhenCharging = findViewById(R.id.checkBoxShowBatteryInfoWhenCharging);

@@ -154,8 +154,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
         // start the clock
         mContentView.resume();
-        incrementStartedCounter();
-        showDialogReview();
 
         // show TV keys info
         if(uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
@@ -261,49 +259,8 @@ public class FullscreenActivity extends AppCompatActivity {
         settingsActivityResultLauncher.launch(i);
     }
 
-    private void incrementStartedCounter() {
-        int oldStartedValue = mSharedPref.getInt("started", 0);
-        Log.i("STARTED",Integer.toString(oldStartedValue));
-        SharedPreferences.Editor editor = mSharedPref.edit();
-        editor.putInt("started", oldStartedValue+1);
-        editor.apply();
-    }
-    private void showDialogReview() {
-        if(mSharedPref.getInt("started", 0) % 14 == 0
-                && mSharedPref.getInt("ad-other-apps-shown", 0) < 1) {
-            // increment counter
-            SharedPreferences.Editor editor = mSharedPref.edit();
-            editor.putInt("ad-other-apps-shown", mSharedPref.getInt("ad-other-apps-shown", 0)+1);
-            editor.apply();
 
-            // show ad "other apps"
-            final Dialog ad = new Dialog(this);
-            ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            ad.setContentView(R.layout.dialog_review);
-            ad.setCancelable(true);
-            ad.findViewById(R.id.buttonReviewNow).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openPlayStore(me, getPackageName());
-                    ad.hide();
-                }
-            });
-            ad.findViewById(R.id.linearLayoutRateStars).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openPlayStore(me, getPackageName());
-                    ad.hide();
-                }
-            });
-            ad.show();
-        }
-    }
-    static void openPlayStore(Activity activity, String appId) {
-        try {
-            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appId)));
-        } catch (android.content.ActivityNotFoundException ignored) {
-            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appId)));
-        }
-    }
+
+
 
 }

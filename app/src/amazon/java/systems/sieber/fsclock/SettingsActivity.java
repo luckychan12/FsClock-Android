@@ -42,13 +42,6 @@ public class SettingsActivity extends BaseSettingsActivity {
         me = this;
 
         // init manual unlock
-        mButtonUnlockSettings.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                openUnlockInputBox("systems.sieber.fsclock.settings", "settings");
-                return false;
-            }
-        });
 
         // init billing library
         loadPurchases();
@@ -60,43 +53,14 @@ public class SettingsActivity extends BaseSettingsActivity {
     }
 
     private void loadPurchases() {
-        // disable settings by default
-        mLinearLayoutPurchaseContainer.setVisibility(View.VISIBLE);
-        enableDisableAllSettings(false);
-
-        // load in-app purchases
-        mFc = new FeatureCheck(this);
-        mFc.setFeatureCheckReadyListener(new FeatureCheck.featureCheckReadyListener() {
-            @Override
-            public void featureCheckReady(boolean fetchSuccess) {
-                if(mFc.unlockedSettings) {
-                    runOnUiThread(new Runnable(){
-                        @Override
-                        public void run() {
-                            mLinearLayoutPurchaseContainer.setVisibility(View.GONE);
-                            enableDisableAllSettings(true);
-                        }
-                    });
-                }
-            }
-        });
-        mFc.init();
 
         // init Amazon billing client
-        final AmazonPurchasingListener purchasingListener = new AmazonPurchasingListener(this);
-        PurchasingService.registerListener(this.getApplicationContext(), purchasingListener);
-        final Set<String> productSkus = new HashSet<>();
-        productSkus.add("settings");
-        PurchasingService.getProductData(productSkus);
-        PurchasingService.getPurchaseUpdates(true);
     }
     @SuppressLint("SetTextI18n")
     @SuppressWarnings("SwitchStatementWithTooFewBranches")
     private void setupPayButton(String sku, String price) {
         switch(sku) {
             case "settings":
-                mButtonUnlockSettings.setEnabled(true);
-                mButtonUnlockSettings.setText( getString(R.string.unlock_settings) + " (" + price + ")" );
                 break;
         }
     }
@@ -104,49 +68,6 @@ public class SettingsActivity extends BaseSettingsActivity {
         PurchasingService.purchase("settings");
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private void openUnlockInputBox(final String requestFeature, final String sku) {
-        final Dialog ad = new Dialog(this);
-        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        ad.setContentView(R.layout.dialog_inputbox);
-        ad.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ad.dismiss();
-                String text = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString().trim();
-                HttpRequest hr = new HttpRequest(getResources().getString(R.string.unlock_api), null);
-                ArrayList<KeyValueItem> headers = new ArrayList<>();
-                headers.add(new KeyValueItem("X-Unlock-Feature",requestFeature));
-                headers.add(new KeyValueItem("X-Unlock-Code",text));
-                hr.setRequestHeaders(headers);
-                hr.setReadyListener(new HttpRequest.readyListener() {
-                    @Override
-                    public void ready(int statusCode, String responseBody) {
-                        try {
-                            if(statusCode != 999) {
-                                throw new Exception("Invalid status code: " + statusCode);
-                            }
-                            JSONObject licenseInfo = new JSONObject(responseBody);
-                            mFc.unlockPurchase(sku);
-                            loadPurchases();
-                        } catch(Exception e) {
-                            Log.e("ACTIVATION",  e.getMessage() + " - " + responseBody);
-                            if(me == null || me.isFinishing() || me.isDestroyed()) return;
-                            AlertDialog ad = new AlertDialog.Builder(me).create();
-                            ad.setTitle(getResources().getString(R.string.activation_failed));
-                            ad.setMessage(e.getMessage());
-                            ad.setButton(Dialog.BUTTON_POSITIVE, getResources().getString(R.string.ok), (DialogInterface.OnClickListener) null);
-                            ad.show();
-                        }
-                    }
-                });
-                hr.execute();
-            }
-        });
-        if(ad.getWindow() != null)
-            ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        ad.show();
-    }
 
     static class AmazonPurchasingListener implements PurchasingListener {
         SettingsActivity mSettingsActivityReference;

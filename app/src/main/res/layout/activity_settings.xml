@@ -32,44 +32,11 @@
             android:orientation="vertical"
             android:layout_gravity="center_horizontal">
 
-            <TextView
-                android:id="@+id/textViewFireTvNotes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginBottom="4dp"
-                android:text="@string/fire_tv_notes" />
-
             <LinearLayout
                 android:id="@+id/linearLayoutInAppPurchase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <Button
-                    android:id="@+id/buttonUnlockSettings"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:enabled="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="doBuyUnlockSettings"
-                    android:text="@string/unlock_settings" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/purchase_support_note" />
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/buttonDreamSettings"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onClickDreamSettings"
-                android:textAllCaps="false"
-                android:text="@string/set_as_screensaver_in_android_settings" />
+                android:orientation="vertical"/>
 
             <LinearLayout
                 android:id="@+id/linearLayoutSettings"
@@ -568,130 +535,26 @@
                     android:orientation="vertical">
                 </LinearLayout>
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/open_source"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/open_source_text"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClickGithub"
-                    android:textAllCaps="false"
-                    android:text="@string/project_website" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/more_apps"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/logo_customerdb" />
-                    <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:onClick="onClickCustomerDatabaseApp"
-                        android:text="@string/customer_database_for_android"
-                        android:textAllCaps="false" />
-                </LinearLayout>
+                    android:orientation="horizontal"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/logo_remotepointer" />
-                    <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:onClick="onClickRemotePointerApp"
-                        android:text="@string/remote_pointer_for_android"
-                        android:textAllCaps="false" />
-                </LinearLayout>
+                    android:orientation="horizontal"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/logo_ballbreak" />
-                    <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:onClick="onClickBallBreakApp"
-                        android:text="@string/ballbreak_for_android"
-                        android:textAllCaps="false" />
-                </LinearLayout>
+                    android:orientation="horizontal"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/logo_oco" />
-                    <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:onClick="onClickOco"
-                        android:text="@string/open_computer_orchestration"
-                        android:textAllCaps="false" />
-                </LinearLayout>
+                    android:orientation="horizontal"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/logo_masterplan" />
-                    <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:onClick="onClickMasterplan"
-                        android:text="@string/masterplan_workforce_management"
-                        android:textAllCaps="false" />
-                </LinearLayout>
+                    android:orientation="horizontal"/>
 
                 <Space
                     android:layout_width="match_parent"
